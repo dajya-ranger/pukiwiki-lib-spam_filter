@@ -25,13 +25,14 @@
  * 　「Net」フォルダのファイルは文字コードをUTF-8に変更したのみ
  * 　delegated-apnic-latestファイルは最新(2019/06/01)に更新
  *
- * スパム判定した場合に「spam_filter」フォルダにログを出力するように修正
- *
- * 修正者：オヤジ戦隊ダジャレンジャー(Twitter:@dajya_ranger_)
- * サイト：SEの良心（https://dajya-ranger.com/）
- *
- * Version 0.8.1
- * Update  2019/06/01
+ * @author		オヤジ戦隊ダジャレンジャー <red@dajya-ranger.com>
+ * @copyright	Copyright © 2019, dajya-ranger.com
+ * @link		https://dajya-ranger.com/pukiwiki/embed-url-shortener/
+ * @example		@linkの内容を参照
+ * @license		Apache License 2.0
+ * @version		0.8.1
+ * @since 		0.8.1 2019/06/01 スパム判定した場合に「spam_filter」フォルダにログを出力するように修正
+ * @since 		0.8.0 暫定初公開（ソースをPukiWiki1.5.2に移植）
  *
  */
 
