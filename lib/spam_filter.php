@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * spam_filter.php
  *
  * Based on akismet_filter.php version 1.2
