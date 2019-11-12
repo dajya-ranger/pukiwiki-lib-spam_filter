@@ -13,7 +13,7 @@
  * @license GPL v2 or (at your option) any later version
  */
 
-/*
+/**
  * 修正情報
  *
  * PukiWiki1.5.2用スパムフィルタspam_filter.php
