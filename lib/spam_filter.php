@@ -31,7 +31,8 @@
  * @link		https://dajya-ranger.com/pukiwiki/setting-mail-form/
  * @example		@linkの内容を参照
  * @license		Apache License 2.0
- * @version		0.8.4
+ * @version		0.8.5
+ * @since 		0.8.5 2019/12/29 empty（空）入力チェックフィルタのデフォルト設定を変更（Ver0.8.4の設定のままではブランクでページ削除が出来ない）
  * @since 		0.8.4 2019/12/08 デフォルトのフィルタを最低限セットするように方針変更
  * @since 		0.8.3 2019/12/08 empty（空）入力チェックフィルタを新規追加
  * @since 		0.8.2 2019/12/08 フィルタによってtextareaの内容もチェックするように修正
@@ -217,7 +218,7 @@ define('SPAM_FILTER_RECAPTCHA_SITEKEY', '');
 define('SPAM_FILTER_RECAPTCHA_SECRETKEY', '');
 
 //// ngempty - empty（空）入力があるかチェック
-define('SPAM_FILTER_NGEMPTY_PLUGIN_NAME', 'edit,article,comment,pcomment');
+define('SPAM_FILTER_NGEMPTY_PLUGIN_NAME', 'article,comment,pcomment');
 
 define('SPAM_FILTER_IS_WINDOWS', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'));
 
