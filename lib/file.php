@@ -2,7 +2,7 @@
 // PukiWiki - Yet another WikiWikiWeb clone.
 // file.php
 // Copyright
-//   2002-2017 PukiWiki Development Team
+//   2002-2020 PukiWiki Development Team
 //   2001-2002 Originally written by yu-ji
 // License: GPL v2 or (at your option) any later version
 //
@@ -13,7 +13,7 @@
  *
  * PukiWiki用スパムフィルタ spam_filter.php
  *
- * ※「lib」フォルダにあるPukiWikiプログラムを1.5.2用に修正
+ * ※「lib」フォルダにあるPukiWikiプログラムを1.5.3用に修正
  *
  * @author		オヤジ戦隊ダジャレンジャー <red@dajya-ranger.com>
  * @copyright	Copyright © 2019-2020, dajya-ranger.com
@@ -22,6 +22,7 @@
  * @example		@linkの内容を参照
  * @license		Apache License 2.0
  * @version		0.9.0
+ * @since 		0.9.0 2020/05/14 PukiWiki1.5.3正式対応
  * @since 		0.8.0 2019/05/29 暫定初公開（ソースをPukiWiki1.5.2に移植）
  *
  */
@@ -32,6 +33,9 @@ define('PKWK_MAXSHOW_CACHE', 'recent.dat');
 
 // AutoLink
 define('PKWK_AUTOLINK_REGEX_CACHE', 'autolink.dat');
+
+// AutoAlias
+define('PKWK_AUTOALIAS_REGEX_CACHE', 'autoalias.dat');
 
 /**
  * Get source(wiki text) data of the page
@@ -122,6 +126,8 @@ function get_filename($page)
 // Put a data(wiki text) into a physical file(diff, backup, text)
 function page_write($page, $postdata, $notimestamp = FALSE)
 {
+	global $autoalias, $aliaspage;
+
 	if (PKWK_READONLY) return; // Do nothing
 
 	$postdata = make_str_rules($postdata);
@@ -159,6 +165,11 @@ function page_write($page, $postdata, $notimestamp = FALSE)
 	file_write(DATA_DIR, $page, $postdata, $notimestamp, $is_delete);
 
 	links_update($page);
+
+	// Update autoalias.dat (AutoAliasName)
+	if ($autoalias && $page === $aliaspage) {
+		update_autoalias_cache_file();
+	}
 }
 
 // Modify original text with user-defined / system-defined rules
@@ -629,22 +640,8 @@ function put_lastmodified()
 
 	// For AutoLink
 	if ($autolink) {
-		list($pattern, $pattern_a, $forceignorelist) =
-			get_autolink_pattern($pages);
-
-		$file = CACHE_DIR . PKWK_AUTOLINK_REGEX_CACHE;
-		pkwk_touch_file($file);
-		$fp = fopen($file, 'r+') or
-			die_message('Cannot open ' . 'CACHE_DIR/' . PKWK_AUTOLINK_REGEX_CACHE);
-		set_file_buffer($fp, 0);
-		flock($fp, LOCK_EX);
-		ftruncate($fp, 0);
-		rewind($fp);
-		fputs($fp, $pattern   . "\n");
-		fputs($fp, $pattern_a . "\n");
-		fputs($fp, join("\t", $forceignorelist) . "\n");
-		flock($fp, LOCK_UN);
-		fclose($fp);
+		autolink_pattern_write(CACHE_DIR . PKWK_AUTOLINK_REGEX_CACHE,
+			get_autolink_pattern($pages, $autolink));
 	}
 }
 
@@ -672,6 +669,38 @@ function get_recent_files()
 function delete_recent_changes_cache() {
 	$file = CACHE_DIR . PKWK_MAXSHOW_CACHE;
 	unlink($file);
+}
+
+// update autolink data
+function autolink_pattern_write($filename, $autolink_pattern)
+{
+	list($pattern, $pattern_a, $forceignorelist) = $autolink_pattern;
+
+	$fp = fopen($filename, 'w') or
+		die_message('Cannot open ' . $filename);
+	set_file_buffer($fp, 0);
+	flock($fp, LOCK_EX);
+	rewind($fp);
+	fputs($fp, $pattern   . "\n");
+	fputs($fp, $pattern_a . "\n");
+	fputs($fp, join("\t", $forceignorelist) . "\n");
+	flock($fp, LOCK_UN);
+	fclose($fp);
+}
+
+// Update AutoAlias regex cache
+function update_autoalias_cache_file()
+{
+	global $autoalias; // Disable (0), Enable (min-length)
+	$aliases = get_autoaliases();
+	if (empty($aliases)) {
+		// Remove
+		@unlink(CACHE_DIR . PKWK_AUTOALIAS_REGEX_CACHE);
+	} else {
+		// Create or Update
+		autolink_pattern_write(CACHE_DIR . PKWK_AUTOALIAS_REGEX_CACHE,
+			get_autolink_pattern(array_keys($aliases), $autoalias));
+	}
 }
 
 // Get elapsed date of the page

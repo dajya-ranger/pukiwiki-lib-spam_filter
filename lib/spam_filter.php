@@ -21,9 +21,9 @@
  * ・akismet.class.php → Akismet PHP5 Class に置き換え
  * →https://github.com/achingbrain/php5-akismet
  *
- * ※「lib」フォルダにあるPukiWikiプログラムを1.5.2用に修正
+ * ※「lib」フォルダにあるPukiWikiプログラムを1.5.3用に修正
  * 　「Net」フォルダのファイルは文字コードをUTF-8に変更したのみ
- * 　delegated-apnic-latestファイルは最新(2019/12/08)に更新
+ * 　delegated-apnic-latestファイルは最新(2020/05/14)に更新
  *
  * @author		オヤジ戦隊ダジャレンジャー <red@dajya-ranger.com>
  * @copyright	Copyright © 2019-2020, dajya-ranger.com
@@ -31,13 +31,14 @@
  * @link		https://dajya-ranger.com/pukiwiki/setting-mail-form/
  * @example		@linkの内容を参照
  * @license		Apache License 2.0
- * @version		0.8.5
+ * @version		0.9.0
+ * @since 		0.9.0 2020/05/14 PukiWiki1.5.3正式対応
  * @since 		0.8.5 2019/12/29 empty（空）入力チェックフィルタのデフォルト設定を変更（Ver0.8.4の設定のままではブランクでページ削除が出来ない）
  * @since 		0.8.4 2019/12/08 デフォルトのフィルタを最低限セットするように方針変更
  * @since 		0.8.3 2019/12/08 empty（空）入力チェックフィルタを新規追加
  * @since 		0.8.2 2019/12/08 フィルタによってtextareaの内容もチェックするように修正
  * @since 		0.8.1 2019/06/01 スパム判定した場合に「spam_filter」フォルダにログを出力するように修正
- * @since 		0.8.0 暫定初公開（ソースをPukiWiki1.5.2に移植）
+ * @since 		0.8.0 2019/05/29 暫定初公開（ソースをPukiWiki1.5.2に移植）
  *
  */
 
