@@ -16,7 +16,7 @@
 /**
  * 修正情報
  *
- * PukiWiki1.5.2用スパムフィルタspam_filter.php
+ * PukiWiki用スパムフィルタ spam_filter.php
  *
  * ・akismet.class.php → Akismet PHP5 Class に置き換え
  * →https://github.com/achingbrain/php5-akismet
@@ -26,7 +26,7 @@
  * 　delegated-apnic-latestファイルは最新(2019/12/08)に更新
  *
  * @author		オヤジ戦隊ダジャレンジャー <red@dajya-ranger.com>
- * @copyright	Copyright © 2019, dajya-ranger.com
+ * @copyright	Copyright © 2019-2020, dajya-ranger.com
  * @link		https://dajya-ranger.com/pukiwiki/setting-mail-form-recaptcha/
  * @link		https://dajya-ranger.com/pukiwiki/setting-mail-form/
  * @example		@linkの内容を参照

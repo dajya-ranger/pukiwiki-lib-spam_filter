@@ -8,6 +8,24 @@
 //
 // File related functions
 
+/**
+ * 修正情報
+ *
+ * PukiWiki用スパムフィルタ spam_filter.php
+ *
+ * ※「lib」フォルダにあるPukiWikiプログラムを1.5.2用に修正
+ *
+ * @author		オヤジ戦隊ダジャレンジャー <red@dajya-ranger.com>
+ * @copyright	Copyright © 2019-2020, dajya-ranger.com
+ * @link		https://dajya-ranger.com/pukiwiki/setting-mail-form-recaptcha/
+ * @link		https://dajya-ranger.com/pukiwiki/setting-mail-form/
+ * @example		@linkの内容を参照
+ * @license		Apache License 2.0
+ * @version		0.9.0
+ * @since 		0.8.0 2019/05/29 暫定初公開（ソースをPukiWiki1.5.2に移植）
+ *
+ */
+
 // RecentChanges
 define('PKWK_MAXSHOW_ALLOWANCE', 10);
 define('PKWK_MAXSHOW_CACHE', 'recent.dat');
@@ -126,6 +144,7 @@ function page_write($page, $postdata, $notimestamp = FALSE)
 	$diffdata    = do_diff($oldpostdata, $postdata);
 	file_write(DIFF_DIR, $page, $diffdata);
 
+	// 2019/05/29 PukiWiki用スパムフィルタ追加ロジック
 	// add client info
 	global $now;
 	$referer = htmlspecialchars($_SERVER['HTTP_REFERER']);

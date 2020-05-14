@@ -8,6 +8,25 @@
 //
 // Plugin related functions
 
+/**
+ * 修正情報
+ *
+ * PukiWiki用スパムフィルタ spam_filter.php
+ *
+ * ※「lib」フォルダにあるPukiWikiプログラムを1.5.2用に修正
+ *
+ * @author		オヤジ戦隊ダジャレンジャー <red@dajya-ranger.com>
+ * @copyright	Copyright © 2019-2020, dajya-ranger.com
+ * @link		https://dajya-ranger.com/pukiwiki/setting-mail-form-recaptcha/
+ * @link		https://dajya-ranger.com/pukiwiki/setting-mail-form/
+ * @example		@linkの内容を参照
+ * @license		Apache License 2.0
+ * @version		0.8.0
+ * @since 		0.8.0 2019/05/29 暫定初公開（ソースをPukiWiki1.5.2に移植）
+ *
+ */
+
+// 2019/05/29 PukiWiki用スパムフィルタ追加
 require_once(LIB_DIR . 'recaptchalib.php');
 
 define('PKWK_PLUGIN_CALL_TIME_LIMIT', 768);
@@ -92,7 +111,7 @@ function do_plugin_action($name)
 		die_message('Plugin init failed: ' . htmlsc($name));
 	}
 
-	// Spam Filter
+	// 2019/05/29 PukiWiki用スパムフィルタ追加
     require_once(LIB_DIR . 'spam_filter.php');
     spam_filter($name);
 
