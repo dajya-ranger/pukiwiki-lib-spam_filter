@@ -175,4 +175,4 @@
 
    END OF TERMS AND CONDITIONS
 
-   Copyright 2019, dajya-ranger.com
+   Copyright 2019-2020, dajya-ranger.com
